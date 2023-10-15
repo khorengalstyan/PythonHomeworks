@@ -29,6 +29,7 @@ class Circle(Shape):
         if (radius > 0):
             self.__radius = radius
     
+    @property
     def getRadius(self):
         return self.__radius
 
@@ -57,9 +58,12 @@ class Rectangle(Shape):
     def setHeight(self, height):
         if (height > 0):
             self.__height = height
+
+    @property
     def getHeight(self):
         return self.__height
 
+    @property
     def getWidth(self):
         return self.__width
 
@@ -95,13 +99,15 @@ class Triangle(Shape):
             self.__thirdSide = thirdSide
 
     
-    
+    @property
     def getFirstSide(self):
             return self.__firstSide
-    
+
+    @property
     def getSecondSide(self):
             return self.__secondSide
-    
+
+    @property
     def getThirdSide(self):
             return self.__thirdSide 
 
