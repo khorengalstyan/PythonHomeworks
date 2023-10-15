@@ -175,7 +175,8 @@ def commandLineInterface():
             action = arguments[0].lower()
             if (action == "create"):
                 shapeCreator(shapeCommands)
-            print ("\033[33mWarning: Please provide valid action. Now only \"create\" action is available\033[32m")
+            else:
+                print ("\033[33mWarning: Please provide valid action. Now only \"create\" action is available\033[32m")
 
 
 
