@@ -18,7 +18,7 @@ def quotaCount(pages):
                 name = tag.getText()
                 count[name] += 1
         else:
-            print("Error:")
+            print("Error: Something went wrong, Please try again.")
     countSorted = dict(sorted(count.items(), key=lambda item: item[1], reverse=True))
     return countSorted
 
