@@ -1,5 +1,5 @@
 import math
-import re
+
 
 class Shape:
 
@@ -16,7 +16,7 @@ class Shape:
 
 
 class Circle(Shape):
-    def __init__(self, radius = 1):
+    def __init__(self, radius):
             self.__radius = radius
     def calculateArea(self):
         return math.pi * self.__radius**2
@@ -40,28 +40,28 @@ class Circle(Shape):
 class Rectangle(Shape):
 
 
-    def __init__(self, width = 1, height = 1):
-            self.width = width
-            self.height = height
+    def __init__(self, width, height):
+            self.__width = width
+            self.__height = height
     def calculateArea(self):
-        return self.width * self.height
+        return self.__width * self.__height
 
     def calculatePerimeter(self):
-        return 2 * self.width + 2 * self.height
+        return 2 * self.__width + 2 * self.__height
 
     
     def setWidth(self, width):
         if (width > 0):
-            self.width = width
+            self.__width = width
 
     def setHeight(self, height):
         if (height > 0):
-            self.height = height
+            self.__height = height
     def getHeight(self):
-        return self.height
+        return self.__height
 
     def getWidth(self):
-        return self.width
+        return self.__width
 
     def about(self):
         print("This is a rectangle with ", self.height, " height and ", self.width, " width.")
@@ -70,43 +70,43 @@ class Rectangle(Shape):
 
 class Triangle(Shape):
 
-    def __init__(self, firstSide = 3, secondSide = 4, thirdSide = 5):
-            self.firstSide = firstSide
-            self.secondSide = secondSide
-            self.thirdSide = thirdSide
+    def __init__(self, firstSide, secondSide, thirdSide):
+            self.__firstSide = firstSide
+            self.__secondSide = secondSide
+            self.__thirdSide = thirdSide
     def calculateArea(self):
-        perimeter = (self.firstSide + self.secondSide + self.thirdSide) / 2
-        return math.sqrt(perimeter * (perimeter - self.firstSide) * (perimeter - self.secondSide) * (perimeter - self.thirdSide))
+        perimeter = (self.__firstSide + self.__secondSide + self.__thirdSide) / 2
+        return math.sqrt(perimeter * (perimeter - self.__firstSide) * (perimeter - self.__secondSide) * (perimeter - self.__thirdSide))
 
     def calculatePerimeter(self):
-        return self.firstSide + self.secondSide + self.thirdSide
+        return self.__firstSide + self.__secondSide + self.__thirdSide
 
     
     def setFirstSide(self, firstSide):
         if (firstSide > 0):
-            self.firstSide = firstSide
+            self.__firstSide = firstSide
 
     def setSecondSide(self, secondSide):
         if (secondSide > 0):
-            self.secondSide = secondSide
+            self.__secondSide = secondSide
 
     def setThirdSide(self, thirdSide):
         if (thirdSide > 0):
-            self.thirdSide = thirdSide
+            self.__thirdSide = thirdSide
 
     
     
     def getFirstSide(self):
-            return self.firstSide
+            return self.__firstSide
     
     def getSecondSide(self):
-            return self.secondSide
+            return self.__secondSide
     
     def getThirdSide(self):
-            return self.thirdSide 
+            return self.__thirdSide 
 
     def about(self):
-        print("This is a triangle with ", self.firstSide, self.secondSide, self.thirdSide, " sides")
+        print("This is a triangle with ", self.__firstSide, self.__secondSide, self.__thirdSide, " sides")
     
 
 #print("Usage: This is a simple shape creator script. Please input desired shape and it's parameters")
