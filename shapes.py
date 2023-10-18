@@ -68,8 +68,7 @@ class Rectangle(Shape):
         return self.__width
 
     def about(self):
-        print("This is a rectangle with ", self.height, " height and ", self.width, " width.")
-
+        print("This is a rectangle with ", self.__height, " height and ", self.__width, " width.")
 
 
 class Triangle(Shape):
@@ -113,64 +112,64 @@ class Triangle(Shape):
 
     def about(self):
         print("This is a triangle with ", self.__firstSide, self.__secondSide, self.__thirdSide, " sides")
-    
-
-#print("Usage: This is a simple shape creator script. Please input desired shape and it's parameters")
 
 
+class ShapeManager:
+    def __init__(self):
+        self.shapes = []
 
+    def printUsage(self,shape):
+        if (shape == "circle"):
+            print("Usage:Circle gets radius. Circle's radius must be greater than 0.")
+        elif (shape == "rectangle"):
+            print("Usage:Rectangle gets width and height. Rectangle's width and height must be greator than 0.")
+        elif (shape == "triangle"):
+            print("Usage: Triangle gets 3 sides. Triangle's sides must be greator than 0 and summary of 2 sides must be greator than the third side.")
 
-
-
-
-def printUsage(shape):
-    if (shape == "circle"):
-        print("Usage:Circle gets radius. Circle's radius must be greater than 0.")
-    elif (shape == "rectangle"):
-        print("Usage:Rectangle gets width and height. Rectangle's width and height must be greator than 0.")
-    elif (shape == "triangle"):
-        print("Usage: Triangle gets 3 sides. Triangle's sides must be greator than 0 and summary of 2 sides must be greator than the third side.")
-
-
-def shapeCreator(*args):
-    validShape = 0
-    if (args[0][0] == "circle"):
-        if (float(args[0][1]) > 0 and len(args[0]) == 2):
-            createdShape = Circle(float(args[0][1]))
-            validShape = 1
-     
-    elif (args[0][0] == "rectangle"):
-        if (float(args[0][1]) > 0 and float(args[0][2]) > 0 and len(args[0]) == 3):
-            createdShape = Rectangle(float(args[0][1]), float(args[0][2]))
-            validShape = 1
-    elif (args[0][0] == "triangle"):
-        if (float(args[0][1]) > 0 and float(args[0][2]) > 0 and float(args[0][3]) and len(args[0]) == 4):
-            if (float(args[0][1]) + float(args[0][2]) > float(args[0][3]) and float(args[0][2]) + float(args[0][3]) > float(args[0][1]) and float(args[0][3]) + float(args[0][1]) > float(args[0][2])):
-                createdShape = Triangle(float(args[0][1]), float(args[0][2]), float(args[0][3]))
+    def shapeCreator(self, *shape):
+        validShape = 0
+        shapeName = shape[0][0]
+        shapeSizes = shape[0][1:len(shape[0])]
+        if (shapeName == "circle"):
+            if (float(shapeSizes[0]) > 0 and len(shapeSizes) == 1):
+                createdShape = Circle(float(shapeSizes[0]))
                 validShape = 1
-            else:
-                print("\033[33mWarning : Triangle is not valid\033[32m")
-                validShape = 2
+     
+        elif (shapeName == "rectangle"):
+            if (float(shapeSizes[0]) > 0 and float(shapeSizes[1]) > 0 and len(shapeSizes) == 2):
+                createdShape = Rectangle(float(shapeSizes[0]), float(shapeSizes[1]))
+                validShape = 1
+        elif (shapeName == "triangle"):
+            if (float(shapeSizes[0]) > 0 and float(shapeSizes[1]) > 0 and float(shapeSizes[2]) and len(shapeSizes) == 3):
+                if (float(shapeSizes[0]) + float(shapeSizes[1]) > float(shapeSizes[2]) and float(shapeSizes[1]) + float(shapeSizes[2]) > float(shapeSizes[0]) and float(shapeSizes[2]) + float(shapeSizes[0]) > float(shapeSizes[1])):
+                    createdShape = Triangle(float(shapeSizes[0]), float(shapeSizes[1]), float(shapeSizes[2]))
+                    validShape = 1
     
+        if (validShape == 1):
+            self.shapes.append(createdShape)
+        elif (validShape == 0): 
+            print("\033[33mWarning : Shape is not valid\033[32m")
+            self.printUsage(shapeName)
     
-
-    if (validShape == 1):
-        createdShape.about()
-        print("Area : ", createdShape.calculateArea())
-        print("Perimeter : ", createdShape.calculatePerimeter())
-    elif (validShape == 0): 
-        print("\033[33mWarning : Shape is not valid\033[32m")
-        printUsage(args[0][0])
+    def printShapes(self):
+        for shape in self.shapes:
+            if (shape != None):
+                shape.about()
+                print("Area : ", shape.calculateArea())
+                print("Perimeter : ", shape.calculatePerimeter())
+                print("\n")
+            
         
 
 
+shapeManager = ShapeManager()
 
 
 def commandLineInterface():
 
     while True:
         print("\033[32m")
-        inputtedCommand = input("Enter your shape. You will get it's area and perimeter. Example create <Shape> [Parameters]. To finish execution please input quit\n")
+        inputtedCommand = input("Enter your action. You can create shape with \"create <Shape> [parameters]\" or get info about shapes with \"shapes\" command.Please input \"quit\" to finish execution.\n")
         if inputtedCommand.lower() == "quit":
             exit()
         arguments = inputtedCommand.split()
@@ -180,15 +179,17 @@ def commandLineInterface():
         else:
             action = arguments[0].lower()
             if (action == "create"):
-                shapeCreator(shapeCommands)
+                shapeManager.shapeCreator(shapeCommands)
+            elif (action == "shapes"):
+                shapeManager.printShapes()
+                
             else:
-                print ("\033[33mWarning: Please provide valid action. Now only \"create\" action is available\033[32m")
+                print ("\033[33mWarning: Please provide valid action. Now only \"create\" and \"shapes\" actions are available\033[32m")
 
 
 
 
 commandLineInterface()
-
 
 
 
