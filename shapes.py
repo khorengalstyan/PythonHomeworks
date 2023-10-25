@@ -106,11 +106,6 @@ class Triangle(Shape):
         print("This is a triangle with ", self.__firstSide, self.__secondSide, self.__thirdSide, " sides")
 
 
-
-
-        
-        
-
 class ShapeManager:
     def __init__(self):
         self.createdShapes = []
@@ -120,11 +115,11 @@ class ShapeManager:
             'rectangle' : self.rectangleCreator
         }
 
-    
-    
+      
     def circleCreator(self, *shape):
         if (float(shape[0][1]) <= 0 or len(shape[0]) != 2):
-             return False
+            print("Usage:Circle gets radius. Circle's radius must be greater than 0.")
+            return False
         else:
             shape = Circle(float(shape[0][1]))
             return shape
@@ -132,13 +127,15 @@ class ShapeManager:
 
     def triangleCreator(self, *shape):
         if (float(shape[0][1]) <= 0  or float(shape[0][2]) <= 0 or float(shape[0][3]) <= 0 or len(shape[0]) != 4):
-             return False
+            print("Usage: Triangle gets 3 sides. Triangle's sides must be greator than 0 and summary of 2 sides must be greator than the third side.")
+            return False
         else:
             shape = Triangle(float(shape[0][1]), float(shape[0][2]), float(shape[0][3]))
             return shape
     
     def rectangleCreator(self, *shape):
         if ((float(shape[0][1]) <= 0 or float(shape[0][2]) <= 0) or len(shape[0]) != 3):
+            print("Usage:Rectangle gets width and height. Rectangle's width and height must be greator than 0.")
             return False
         else:  
             shape = Rectangle(float(shape[0][1]), float(shape[0][2]))
@@ -148,27 +145,11 @@ class ShapeManager:
     def shapeCreator(self, *shape):
         shapeName = shape[0][0]
         createdShape = self.shapes[shapeName](shape[0])
-
         if (createdShape != False):
             self.createdShapes.append(createdShape)
-        else:
-            self.printUsage(shapeName)
         
-    
-
-    def printUsage(self, shape):
-        if (shape == "circle"):
-            print("Usage:Circle gets radius. Circle's radius must be greater than 0.")
-        elif (shape == "rectangle"):
-            print("Usage:Rectangle gets width and height. Rectangle's width and height must be greator than 0.")
-        elif (shape == "triangle"):
-            print("Usage: Triangle gets 3 sides. Triangle's sides must be greator than 0 and summary of 2 sides must be greator than the third side.")
-    
-
-    
     def printShapes(self):
         for shape in self.createdShapes:
-            
                 shape.about()
                 print("Area : ", shape.calculateArea())
                 print("Perimeter : ", shape.calculatePerimeter())
