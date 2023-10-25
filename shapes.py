@@ -121,42 +121,39 @@ class ShapeManager:
         }
 
     
-    def validShape(self, *shape):
-        shapeName = shape[0][0]
-        isValid = True
-        if (shapeName == "circle"):
-            if (float(shape[0][1]) <= 0 or len(shape[0]) != 2):
-                isValid = False
-        elif (shapeName == "rectangle"):
-            if ((float(shape[0][1]) <= 0 or float(shape[0][2]) <= 0) or len(shape[0]) != 3):
-                isValid = False
-        elif (shapeName == "triangle"):
-            if (float(shape[0][1]) <= 0  or float(shape[0][2]) <= 0 or float(shape[0][3]) <= 0 or len(shape[0]) != 4):
-                isValid = False
-        
-        return isValid
     
     def circleCreator(self, *shape):
-        shape = Circle(float(shape[0][1]))
-        return shape
+        if (float(shape[0][1]) <= 0 or len(shape[0]) != 2):
+             return False
+        else:
+            shape = Circle(float(shape[0][1]))
+            return shape
 
 
     def triangleCreator(self, *shape):
-        shape = Triangle(float(shape[0][1]), float(shape[0][2]), float(shape[0][3]))
-        return shape
+        if (float(shape[0][1]) <= 0  or float(shape[0][2]) <= 0 or float(shape[0][3]) <= 0 or len(shape[0]) != 4):
+             return False
+        else:
+            shape = Triangle(float(shape[0][1]), float(shape[0][2]), float(shape[0][3]))
+            return shape
     
     def rectangleCreator(self, *shape):
-        shape = Rectangle(float(shape[0][1]), float(shape[0][2]))
-        return shape
+        if ((float(shape[0][1]) <= 0 or float(shape[0][2]) <= 0) or len(shape[0]) != 3):
+            return False
+        else:  
+            shape = Rectangle(float(shape[0][1]), float(shape[0][2]))
+            return shape
 
     
     def shapeCreator(self, *shape):
         shapeName = shape[0][0]
-        if (self.validShape(shape[0]) == True):
-            createdShape = self.shapes[shapeName](shape[0])
+        createdShape = self.shapes[shapeName](shape[0])
+
+        if (createdShape != False):
             self.createdShapes.append(createdShape)
         else:
             self.printUsage(shapeName)
+        
     
 
     def printUsage(self, shape):
