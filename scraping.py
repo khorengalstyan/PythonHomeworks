@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from collections import defaultdict
 import urllib3
+import json
 
 
 urllib3.disable_warnings()
@@ -23,11 +24,18 @@ def quotaCount(pages):
         else:
             print("Error: Something went wrong")
     countSorted = dict(sorted(count.items(), key=lambda item: item[1], reverse=True))
+    indentCount = 0
+    while (indentCount < 1):
+        indentCount = int(input("Please input indent count:"))
+
+    data = json.dumps(countSorted, indent = indentCount)
+    print(data)
+
     return countSorted
 
-def toJson(countSorted):
-    for toJson in countSorted:
-        print("{\n", "     ", "\"", toJson, "\":" , " ", "\"",countSorted.get(toJson),"\"\n}")
+
+    
+
 
 
 pages = input("Please enter how many pages you want to check:")
@@ -38,4 +46,3 @@ except:
     raise TypeError("Please input valid page")
 
 countSorted = quotaCount(pages)
-toJson(countSorted)
